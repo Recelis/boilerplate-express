@@ -1,6 +1,7 @@
-
+require('dotenv').config();
 var express = require('express');
 var app = express();
+// https://www.npmjs.com/package/dotenv
 
 // --> 7)  Mount the Logger middleware here
 
@@ -26,10 +27,17 @@ app.get('/', function(req, res){
 app.use('/', express.static(__dirname+"/public"));
 
 /** 5) serve JSON on a specific route */
-
+// app.get('/json', function(req,res){
+//     res.json({"message":"Hello json"});
+// });
 
 /** 6) Use the .env file to configure the app */
- 
+app.get('/json', function(req,res){
+    console.log(process.env.MESSAGE_STYLE);
+    if (process.env.MESSAGE_STYLE === "uppercase"){
+        res.json({"message":"HELLO JSON"});
+    } else res.json({"message":"Hello json"});
+});
  
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
